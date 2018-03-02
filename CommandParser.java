@@ -3,11 +3,15 @@ import java.io.*;
 
 class CommandParser{
 	private PokemonFarm pokemonFarm;
+	private Wildpokemon wildPokemon;
 	private Scanner commandScanner;
+	private PokemonBag pokemonBag;
 	private boolean isRunning;
 
-	public CommandParser(PokemonFarm pokemonFarm){
+	public CommandParser(PokemonFarm pokemonFarm/*,Wildpokemon wildPokemon,PokemonBag pokemonBag*/){
 		this.pokemonFarm = pokemonFarm;
+		this.wildPokemon = new Wildpokemon();
+		this.pokemonBag = new PokemonBag();
 		commandScanner = new Scanner(System.in);
 		isRunning = false;
 	}
@@ -35,6 +39,10 @@ class CommandParser{
 				this.walkPokemons();	
 			else if(command.equals("remove"))
 				this.removePokemons();
+			else if(command.equals("listbag"))
+				this.listPokemonsBag();
+			else if(command.equals("find"))
+				this.findPokemon();		
 		}
 
 	}
@@ -98,6 +106,14 @@ class CommandParser{
 		System.out.println("==========================================");
 	}
 
+	private void listPokemonsBag(){
+		System.out.println("==========================================");
+		System.out.println("Pokemon Bag List");
+		System.out.println("==========================================");
+		this.pokemonBag.list();
+		System.out.println("==========================================");
+	}
+
 	private void feedPokemons(){
 		System.out.print("Which pokemon do you want to feed? ");
 		String name = this.commandScanner.next();
@@ -131,18 +147,35 @@ class CommandParser{
 		}
 	}
 
-	private void catchPokemons(){
-		System.out.print("Select your pokeball: ");
+	private void removePokemonsBag(){
+		System.out.print("Which pokemon in bag do you want to remove?: ");
 		String name = this.commandScanner.next();
-		if(name.equals("pokeball")){
-			
+		if(name.equals("all")){
+			this.pokemonBag.kill("all");
 		}
-		if(name.equals("greatball")){
+		else{
+			this.pokemonBag.kill(name);
+		}
+	}
 
-		}
-		if(name.equals("ultraball")){
+	
 
-		}
+	private void findPokemon(){
+		// this.wildPokemon = new Wildpokemon();
+		this.wildPokemon.wildPokemonSpawn();
+
+		System.out.print("Catch or Run : ");
+
+		String name = this.commandScanner.next();
+		
+		if(name.equals("run"))
+			System.out.println("Ran away!!!");
+		if(name.equals("catch")){
+			this.wildPokemon.catchPokemon();
+			if(this.wildPokemon.success() == true){
+				this.pokemonBag.addPokemon(this.wildPokemon.getWildPokemon());
+			}
+		}			
 		
 	}
 
