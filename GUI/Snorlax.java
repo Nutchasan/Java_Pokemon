@@ -1,3 +1,4 @@
+package GUI;
 
 class Snorlax extends Pokemon {
     public Snorlax(String name, float weight, float stepLength){

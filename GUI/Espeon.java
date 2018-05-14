@@ -1,3 +1,4 @@
+package GUI;
 class Espeon extends Eevee {
     public Espeon(String name, float weight, float stepLength){
 		super(name, weight, stepLength);

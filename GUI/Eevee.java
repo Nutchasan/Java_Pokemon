@@ -1,4 +1,4 @@
-	
+package GUI;	
 
 class Eevee extends Pokemon {
 	public Eevee(String name, float weight, float stepLength){

@@ -1,3 +1,4 @@
+package GUI;
 
 class Zapdos extends Pokemon {
     public Zapdos(String name, float weight, float stepLength){

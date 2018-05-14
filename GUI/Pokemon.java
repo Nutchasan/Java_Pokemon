@@ -1,3 +1,4 @@
+package GUI;
 
 import java.util.*;
 
@@ -9,6 +10,10 @@ class Pokemon{
 	protected float gainingWeightStep;
 	private String[] types;
 	private float mood;
+	private int healt;
+	private int level ;
+	private int exp;
+
 	Random random = new Random();
 
 	public Pokemon(String name,
@@ -21,7 +26,11 @@ class Pokemon{
 		this.stepLength = stepLength;
 		this.gainingWeightStep = gainingWeightStep;
 		
-		step = 0;
+		this.step = 0;
+
+		this.healt = 100;
+		this.level = 1;
+
 
 
 		if(types == null)
@@ -32,11 +41,35 @@ class Pokemon{
 
 	public void walk(){
 		step += 1;
-		weight -= gainingWeightStep;
+		if(weight > 10 ){
+			weight -= gainingWeightStep;
+		}
+		if(weight < 10 ){
+			weight = 10;
+		}
+
 	}
 
 	public void eat(){
 		weight += gainingWeightStep;
+		if(healt < 100)
+			healt += 8;
+		if(healt > 100)
+			healt = 100;
+	}
+
+	public void levelUp(){
+		if(exp < 100 && healt > 0 && weight < 40 && weight >20){
+			exp += 10;
+			healt -= 7;
+		}
+		if(healt < 0){
+			healt = 0;
+		}
+		if(exp >= 100){
+			level += 1;
+			exp = 0;
+		}
 	}
 
 	public void print(){
@@ -54,6 +87,26 @@ class Pokemon{
 
 	public String getName(){
 		return this.name;
+	}
+
+	public float getWeight() {
+        return weight;
+    }
+
+    public float getStepLength() {
+        return stepLength;
+    }
+
+	public int getHealt(){
+		return healt;
+	}
+
+	public int getEXP(){
+		return exp;
+	}
+
+	public int getLevel(){
+		return level;
 	}
 
 }
